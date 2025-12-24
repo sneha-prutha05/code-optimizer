@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Code Optimizer – A Smart Text Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .header {
+            background: #222;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo-title img {
+            width: 150px;
+            height: auto;
+        }
+        .tagline {
+            font-size: 14px;
+            color: #ccc;
+        }
+        textarea {
+            width: 80%;
+            height: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 16px;
+            resize: vertical;
+            color:red;
+        }
+        button {
+            background: lightgreen;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-title">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+            <div>
+                <h1>Code Optimizer <span style="font-size: 14px;">(a smart text editor)</span></h1>
+                <div class="tagline">Analyze. Optimize. Accelerate.</div>
+            </div>
+        </div>
+    </div>
+
+    <form method="POST">
+        <textarea name="code" id="codeInput" placeholder="Type or paste your code here..." onfocus="clearPlaceholder()">{{ code }}</textarea><br>
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if analysis %}
+    <div class="results">
+        <h3>Analysis Result:</h3>
+        <p><strong>Loops Detected:</strong> {{ analysis.loops }}</p>
+        <p><strong>Recursion Detected:</strong> {{ 'Yes' if analysis.recursion else 'No' }}</p>
+        <p><strong>Time Complexity:</strong> {{ analysis.complexity }}</p>
+        <p><strong>Suggestion:</strong> {{ analysis.suggestion }}</p>
+    </div>
+    {% endif %}
+</body>
+</html>
